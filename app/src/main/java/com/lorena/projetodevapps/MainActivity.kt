@@ -2,7 +2,10 @@
 
 package com.lorena.projetodevapps
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -25,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -255,7 +259,6 @@ fun AnimesScreen(navController: NavHostController) {
                 searchResults.value = results
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Handle error, e.g., show a Toast or Snackbar
             }
         }
     }
@@ -428,6 +431,7 @@ fun MangasScreen(navController: NavHostController) {
 
 @Composable
 fun AnimeDetailDialog(anime: Anime?, onDismissRequest: () -> Unit) {
+    val uriHandler = LocalUriHandler.current
     if (anime != null) {
         Dialog(onDismissRequest = onDismissRequest) {
             Surface(
@@ -460,7 +464,9 @@ fun AnimeDetailDialog(anime: Anime?, onDismissRequest: () -> Unit) {
                     Text(text = "Members: ${anime.members}")
                     Spacer(modifier = Modifier.height(8.dp))
                     Button(
-                        onClick = { /* Open the anime URL in a browser */ },
+                        onClick = {
+                            uriHandler.openUri(anime.myanimelist_url)
+                        },
                         modifier = Modifier.align(Alignment.End)
                     ) {
                         Text("View on MyAnimeList")
@@ -474,6 +480,7 @@ fun AnimeDetailDialog(anime: Anime?, onDismissRequest: () -> Unit) {
 @Composable
 fun MediaDetailDialog(media: Media?, onDismissRequest: () -> Unit) {
     if (media != null) {
+        val uriHandler = LocalUriHandler.current
         Dialog(onDismissRequest = onDismissRequest) {
             Surface(
                 shape = RoundedCornerShape(16.dp),
@@ -490,12 +497,7 @@ fun MediaDetailDialog(media: Media?, onDismissRequest: () -> Unit) {
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     Image(
-                        // no painer usar video, se nao existir usar thumbnail
-                        painter = if (media.video != null) {
-                            rememberAsyncImagePainter(media.video)
-                        } else {
-                            rememberAsyncImagePainter(media.thumbnail)
-                        },
+                        painter = rememberAsyncImagePainter(media.thumbnail),
                         contentDescription = media.title,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -512,7 +514,7 @@ fun MediaDetailDialog(media: Media?, onDismissRequest: () -> Unit) {
                     Spacer(modifier = Modifier.height(8.dp))
                     Button(
                         onClick = {
-                            // Open the media URL in a browser
+                            uriHandler.openUri(media.url.toString())
                         },
                         modifier = Modifier.align(Alignment.End)
                     ) {

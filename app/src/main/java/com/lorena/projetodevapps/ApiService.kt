@@ -40,14 +40,14 @@ interface MyAnimeListApi {
     @GET("anime/top/special?p=1")
     @Headers(
         "x-rapidapi-host: myanimelist-api1.p.rapidapi.com",
-        "x-rapidapi-key: 415baa74d2mshb02ada7937f18b3p1edbecjsn325a52750ce0"
+        "x-rapidapi-key: 655ecf1be6msh35e7999e2ec546bp1418ebjsn42df216b9b60"
     )
     suspend fun getTopSpecialAnimes(): List<Anime>
 
     @GET("anime/search")
     @Headers(
         "x-rapidapi-host: myanimelist-api1.p.rapidapi.com",
-        "x-rapidapi-key: 415baa74d2mshb02ada7937f18b3p1edbecjsn325a52750ce0"
+        "x-rapidapi-key: 655ecf1be6msh35e7999e2ec546bp1418ebjsn42df216b9b60"
     )
     suspend fun searchAnime(
         @Query("q") query: String,
@@ -59,14 +59,14 @@ interface MyAnimeListApi {
     @GET("anime/{id}")
     @Headers(
         "x-rapidapi-host: myanimelist-api1.p.rapidapi.com",
-        "x-rapidapi-key: 415baa74d2mshb02ada7937f18b3p1edbecjsn32550ce0"
+        "x-rapidapi-key: 655ecf1be6msh35e7999e2ec546bp1418ebjsn42df216b9b60"
     )
     suspend fun getAnimeById(@Path("id") id: Int): Media
 
     @GET("manga/search")
     @Headers(
         "x-rapidapi-host: myanimelist-api1.p.rapidapi.com",
-        "x-rapidapi-key: 415baa74d2mshb02ada7937f18b3p1edbecjsn325a52750ce0"
+        "x-rapidapi-key: 655ecf1be6msh35e7999e2ec546bp1418ebjsn42df216b9b60"
     )
     suspend fun searchManga(
         @Query("q") query: String,
@@ -78,7 +78,7 @@ interface MyAnimeListApi {
     @GET("manga/{id}")
     @Headers(
         "x-rapidapi-host: myanimelist-api1.p.rapidapi.com",
-        "x-rapidapi-key: 415baa74d2mshb02ada7937f18b3p1edbecjsn32550ce0"
+        "x-rapidapi-key: f7a691730fmsh17f775bc62cc0e3p102da7jsn5d320fc9faf5"
     )
     suspend fun getMangaById(@Path("id") id: Int): Media
 }
